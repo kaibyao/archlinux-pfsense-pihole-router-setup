@@ -1,0 +1,11 @@
+[Unit]
+Description=Start Router VMs
+
+[Service]
+ExecStart=/usr/bin/start-router-vms.sh
+
+[Install]
+WantedBy=multi-user.target
+
+# `sudo cp` this file to /etc/systemd/system/
+# sudo systemctl enable start-router-vms.service
