@@ -86,9 +86,12 @@ Install pi-hole. Check the website for the command to run. Jot down the login pa
 
 ### Configure pfSense
 
-Set Under "General Settings", set DNS to Cloudflare/Google/whatever. Also need to check a box for...
+Under "General Settings":
 
-Enable interfaces.
+- Set DNS to Cloudflare/Google/whatever.
+- Check: "Do not use the DNS Forwarder/DNS Resolver as a DNS server for the firewall"
+
+Enable all interfaces.
 
 Create a bridge that contains all the LAN interfaces + the virtual network to the host (the one that matches the `default` virtual network).
 
@@ -109,8 +112,27 @@ Check the box for...
 
 Under Diagnostics > DHCP Leases, add static IP addresses to pihole.
 
-Under DHCP Settings, enable DHCP for the network bridge that you created. Set the DNS to the pihole’s static IP.
+Under DHCP Settings, enable DHCP for the network bridge that you created.
+
+- Set the IP Address range from .50 to .254.
+- Set the DNS to the pihole’s static IP.
+
+Connect a laptop via wired to all of the NIC ports on your new router and make sure that you are able to:
+
+1. Access the router + pihole via their IP addresses.
+2. Access the internet.
+
+Disable the DHCP Server for LAN. You don't need it anymore.
+
+In VMM, change the first NIC’s (the WAN NIC) mode to "Passthrough". This makes it so Arch Linux host will no longer have an internet connection when pfSense is running.
 
 ### Configure Arch Linux
 
-Add the following startup script so that the pfsense will load, and then pihole will load afterwards.
+In Gnome’s system settings GUI, configure each NIC port used for the LAN so that IpV4 and V6 are disabled.
+
+Add the following startup scripts so that both pfsense and pihole will start on startup. pfsense will load first, and then pihole will load afterwards (pihole doesn't connect to pfsense correctly if they both autostart at the same time).
+
+1. `sudo cp start-router-vms.sh /usr/bin`
+1. `sudo chmod 755 /usr/bin/start-router-vms.sh`
+1. `sudo cp start-router-vms.service /etc/systemd/system/`
+1. `sudo systemctl enable --now start-router-vms.service`
