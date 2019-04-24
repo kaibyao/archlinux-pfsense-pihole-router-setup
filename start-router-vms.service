@@ -7,5 +7,5 @@ ExecStart=/usr/bin/start-router-vms.sh
 [Install]
 WantedBy=multi-user.target
 
-# chmod this to 755
-# systemctl enable start-router-vms
+# `sudo cp` this file to /etc/systemd/system/
+# sudo systemctl enable start-router-vms.service

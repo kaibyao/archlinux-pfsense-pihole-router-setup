@@ -11,4 +11,5 @@ done
 # Start pihole
 virsh start pihole
 
-# `sudo mv` this file to /usr/bin/
+# `sudo cp` this file to /usr/bin/
+# chmod this file to 755
