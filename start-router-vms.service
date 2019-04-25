@@ -5,7 +5,8 @@ Requires=libvirtd.service
 
 [Service]
 ExecStart=/usr/bin/start-router-vms
-Type=forking
+Type=simple
+TimeoutSec=240
 
 [Install]
 WantedBy=multi-user.target
