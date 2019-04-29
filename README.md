@@ -160,8 +160,8 @@ In Gnome’s system settings GUI, configure each NIC port used for the LAN so th
 Add the following startup scripts so that both pfsense and pihole will start on startup. pfsense will load first, and then pihole will load afterwards (pihole doesn't connect to pfsense correctly if they both autostart at the same time).
 
 ```bash
-sudo cp start-router-vms.sh /usr/bin
-sudo chmod 755 /usr/bin/start-router-vms.sh
+sudo cp start-router-vms /usr/bin
+sudo chmod 755 /usr/bin/start-router-vms
 sudo cp start-router-vms.service /etc/systemd/system/
 sudo systemctl enable --now start-router-vms.service
 ```
