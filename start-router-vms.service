@@ -1,8 +1,12 @@
 [Unit]
 Description=Start Router VMs
+After=libvirtd.service
+Requires=libvirtd.service
 
 [Service]
-ExecStart=/usr/bin/start-router-vms.sh
+ExecStart=/usr/bin/start-router-vms
+Type=simple
+TimeoutSec=240
 
 [Install]
 WantedBy=multi-user.target
